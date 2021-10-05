@@ -2,12 +2,14 @@ using System.Linq;
 using CommanderGQL.Database;
 using CommanderGQL.Models;
 using HotChocolate;
+using HotChocolate.Data;
 
 namespace CommanderGQL.GraphQL
 {
     public class Query 
     {
-        public IQueryable<Platform> GetPlatform([Service] AppDbContext contex)
+        [UseDbContext(typeof(AppDbContext))]
+        public IQueryable<Platform> GetPlatform([ScopedService] AppDbContext contex)
         {
             return contex.Platforms;
         }
